@@ -47,6 +47,7 @@ describe('server', () => {
         const respObj = JSON.parse(resp.text);
         expect(respObj, 'to have key', 'text');
         expect(respObj.text, 'to contain', 'flatiron-school');
+        expect(respObj.text, 'to contain', 'https://github.com/flatiron-school');
         done();
       });
   });
