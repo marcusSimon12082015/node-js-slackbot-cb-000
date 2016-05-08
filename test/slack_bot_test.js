@@ -13,4 +13,9 @@ describe('server', () => {
     server.listen(3000);
   });
 
+  it('GET request to / responds with status 200', (done) => {
+    request(baseUrl)
+      .get('/')
+      .expect(200, done);
+  });
 });
