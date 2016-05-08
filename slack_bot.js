@@ -55,6 +55,8 @@ app.post('/', (req, res) => {
   });
 });
 
+// This code "exports" a function 'listen` that can be used to start
+// our server on the specified port.
 exports.listen = function(port, callback) {
   callback = (typeof callback != 'undefined') ? callback : () => {
     console.log('Listening on ' + port + '...');
