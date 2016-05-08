@@ -5,6 +5,8 @@ describe('package.json', () => {
   it('has the correct dependencies', () => {
    expect(Object.keys(packageJson.dependencies)).to.include.members([
      'express',
+     'body-parser',
+     'request-promise',
    ]);
   });
 
@@ -13,7 +15,8 @@ describe('package.json', () => {
      'chai',
      'mocha',
      'mocha-multi',
-     'supertest'
+     'supertest',
+     'unexpected',
    ]);
   });
 });
