@@ -5,6 +5,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
+const TOKEN = '[Your Slash Command Token Here]';
+
 // Just an example request to get you started..
 app.get('/', (req, res) => {
   res.send('Hello, World!');
