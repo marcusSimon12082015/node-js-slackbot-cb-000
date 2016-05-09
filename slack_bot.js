@@ -46,10 +46,9 @@ app.post('/', (req, res) => {
     });
     return;
   }
-  const cmd = req.body.text.split(' ');
-  const user = cmd[0];
-  const paramToGet = cmd[1];
-  console.log({user: user, paramToGet:paramToGet});
+  const cmd = req.body.text.split(' '),
+        user = cmd[0],
+        paramToGet = cmd[1];
   fetchGithubUser(user).then((resp) => {
     const result = JSON.parse(resp);
     res.send(prepareResponse(result, paramToGet));
