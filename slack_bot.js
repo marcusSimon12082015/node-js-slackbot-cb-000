@@ -17,18 +17,18 @@ const fetchGithubUser = (username) => {
   });
 };
 
-const formatResponseText = (info, paramToGet) => {
-  let rv = { mrkdwn: true };
+const prepareResponse = (info, paramToGet) => {
+  let rv = { response_type: "ephemeral", mrkdwn: true };
   const EOL = '\n';
   rv.text = '*Github User: @' + info.login + ' (' + info.name + ')*:' + EOL;
   if (!paramToGet) {
-    rv.text += 'Company: ' + info.company + EOL;
-    rv.text += 'Location: ' + info.location + EOL;
-    rv.text += 'Hireable: ' + info.hireable + EOL;
-    rv.text += 'Githup Profile: ' + info.html_url + EOL;
+    rv.text += '> Company: ' + info.company + EOL;
+    rv.text += '> Location: ' + info.location + EOL;
+    rv.text += '> Hireable: ' + info.hireable + EOL;
+    rv.text += '> Githup Profile: ' + info.html_url + EOL;
   }
   else {
-    rv.text += paramToGet.charAt(0).toUpperCase() + paramToGet.slice(1) + ': ';
+    rv.text += '> ' + paramToGet.charAt(0).toUpperCase() + paramToGet.slice(1) + ': ';
     rv.text += info[paramToGet];
   }
   return rv;
@@ -49,7 +49,7 @@ app.post('/', (req, res) => {
   console.log({user: user, paramToGet:paramToGet});
   fetchGithubUser(user).then((resp) => {
     const result = JSON.parse(resp);
-    res.send(formatResponseText(result, paramToGet));
+    res.send(prepareResponse(result, paramToGet));
   }).catch((err) => {
     res.status(err.statusCode).end();
   });
