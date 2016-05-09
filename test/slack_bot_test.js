@@ -52,22 +52,34 @@ describe('server', () => {
       });
   });
 
-  it('POST to / with nonexistent user specified returns 404 code', (done) => {
+  it('POST to / with nonexistent user specified returns 404 code and msg', (done) => {
     mockSlackPostData.text = '76ytjf0';
     request(baseUrl)
       .post('/')
       .set('Accept', 'application/x-www-form-urlencoded')
       .send(transformData(mockSlackPostData))
-      .expect(404, done);
+      .expect(404)
+      .end((err, resp) => {
+        if(err) return done(err);
+        const respObj = JSON.parse(resp.text);
+        expect(respObj, 'to have key', 'text');
+        done();
+      });
   });
 
-  it('POST to / with slack data with no user specified returns 400', (done) => {
+  it('POST to / with slack data with no user specified returns 400 and msg', (done) => {
     mockSlackPostData.text = '';
     request(baseUrl)
       .post('/')
       .set('Accept', 'application/x-www-form-urlencoded')
       .send(transformData(mockSlackPostData))
-      .expect(400, done);
+      .expect(400)
+      .end((err, resp) => {
+        if (err) return done(err);
+        const respObj = JSON.parse(resp.text);
+        expect(respObj, 'to have key', 'text');
+        done();
+      });
   });
 
   it('POST to / with user and specific paramter to fetch returns correctly', (done) => {
