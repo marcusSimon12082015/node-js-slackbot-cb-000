@@ -13,6 +13,10 @@ const transformData = (obj) => {
   return str.join("&");
 };
 
+const clone = (obj) => {
+  return JSON.parse(JSON.stringify(obj));
+};
+
 let mockSlackPostData = {
   token: '8cVJhp6TA0fU1gEsFawEussX',
   team_id: 'T02KU9PH6',
@@ -36,12 +40,23 @@ describe('server', () => {
       .expect(200, done);
   });
 
-  it('POST to / for existant user returns correctly ', (done) => {
-    mockSlackPostData.text = 'flatiron-school';
+  it('POST to / with invalid token returns 400', (done) => {
+    let data = clone(mockSlackPostData);
+    data.token = '111111111111111';
     request(baseUrl)
       .post('/')
       .set('Accept', 'application/x-www-form-urlencoded')
-      .send(transformData(mockSlackPostData))
+      .send(transformData(data))
+      .expect(400,done);
+  });
+
+  it('POST to / for existant user returns correctly ', (done) => {
+    let data = clone(mockSlackPostData);
+    data.text = 'flatiron-school';
+    request(baseUrl)
+      .post('/')
+      .set('Accept', 'application/x-www-form-urlencoded')
+      .send(transformData(data))
       .expect(200)
       .end((err, resp) => {
         const respObj = JSON.parse(resp.text);
@@ -53,11 +68,12 @@ describe('server', () => {
   });
 
   it('POST to / with nonexistent user specified returns 404 code and msg', (done) => {
-    mockSlackPostData.text = '76ytjf0';
+    let data = clone(mockSlackPostData);
+    data.text = '76ytjf0';
     request(baseUrl)
       .post('/')
       .set('Accept', 'application/x-www-form-urlencoded')
-      .send(transformData(mockSlackPostData))
+      .send(transformData(data))
       .expect(404)
       .end((err, resp) => {
         if(err) return done(err);
@@ -68,7 +84,8 @@ describe('server', () => {
   });
 
   it('POST to / with slack data with no user specified returns 400 and msg', (done) => {
-    mockSlackPostData.text = '';
+    let data = clone(mockSlackPostData);
+    data.text = '';
     request(baseUrl)
       .post('/')
       .set('Accept', 'application/x-www-form-urlencoded')
@@ -83,11 +100,12 @@ describe('server', () => {
   });
 
   it('POST to / with user and specific paramter to fetch returns correctly', (done) => {
-    mockSlackPostData.text = 'flatiron-school id';
+    let data = clone(mockSlackPostData);
+    data.text = 'flatiron-school id';
     request(baseUrl)
       .post('/')
       .set('Accept', 'application/x-www-form-urlencoded')
-      .send(transformData(mockSlackPostData))
+      .send(transformData(data))
       .expect(200)
       .end((err, resp) => {
         if (err) return done(err);
