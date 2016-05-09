@@ -36,7 +36,7 @@ Let's move on.
 
 In order for our slash command to work, we'll need to make our server **publicly accessible** in some way. Now, normally you'd do this by deploying a server to some service, like Amazon Web Services or Digital Ocean, but since we are just experimenting here what we'll do is use a tool called [**Ngrok**](http://ngrok.com) to make our local server publicy accessible. 
 
-What Ngrok does is establish a tunnel between a dynamically generated public domain (e.g. https://5fea2c02.ngrok.io) and our local server. That way we can just spin up our server locally, and hen point Slack's slash command configuration to the dynamcially generated ngrok domain as our services "webhook". More about webhooks and the Slack configuraiton in a bit. Let's get Ngrok setup.
+What Ngrok does is establish a tunnel between a dynamically generated public domain (e.g. https://5fea2c02.ngrok.io) and our local server. That way we can just spin up our server locally, and hen point Slack's slash command configuration to the dynamically generated ngrok domain as our services "webhook". More about webhooks and the Slack configuraiton in a bit. Let's get Ngrok setup.
 
 In order to setup Ngrok, you'll need to get it on your computer. The easiest way to do this is just to download it from [here](http://ngrok.com/download). Once you've downloaded the zip file that it provides, you'll need to unzip the file, and place it somewhere in your path so that you can execute it on the command line. Once you've done this, you should be able to run `./ngrok --help` and see ngrok instructions.
 
@@ -57,7 +57,7 @@ The last step we need to take is to configure our slash command on Slack itself.
 
 > Note: Webhooks themselves are very interesting! They are used all over the web. Essentially, they are like callbacks for the web. A webhook is just a callback to some web service that occurs when a process has completed on a server. If you want to find out more, you can explore [here](http://www.webhooks.org/).
 
-In order to configure our webhook, go to a slack accont that you use and create a test channel somewhere. Once you've done that, go to the dashboard for building a custom integration. The url for that should be the following: `http://<yourteamname>.slack.com/apps/build/cusotm-integration`. Once there you should see the following:
+In order to configure our webhook, go to a slack account that you use and create a test channel somewhere. Once you've done that, go to the dashboard for building a custom integration. The url for that should be the following: `http://<yourteamname>.slack.com/apps/build/cusotm-integration`. Once there you should see the following:
 
 ![Slack Custom Integration Page Screenshot](https://ezmiller.s3.amazonaws.com/public/images/Custom_Integration__CodeCuts_Slack_2016-05-09_09-06-54.png)
 
@@ -65,7 +65,7 @@ From here, click on the "Slash Commands" option. You'll then be presented with a
 
 ![](https://ezmiller.s3.amazonaws.com/public/images/Slash_Commands__CodeCuts_Slack_2016-05-09_09-12-42.png)
 
-The main thing that we MUST do here is to register our Ngrok webhook url. Otherwise, the slash command won't know which server to notify. Keep in mind that everytime you re-run Ngrok it generates a new url, so if we restart Ngrok, we'll need to update our configuration here with the new url. You'll also want to take note of the Validation token because we'll need to implement a mechanism to validate this token for each incoming POST event to our server.
+The main thing that we MUST do here is to register our Ngrok webhook url. Otherwise, the slash command won't know which server to notify. Keep in mind that every time you re-run Ngrok it generates a new url, so if we restart Ngrok, we'll need to update our configuration here with the new url. You'll also want to take note of the Validation token because we'll need to implement a mechanism to validate this token for each incoming POST event to our server.
 
 Alrighty. At this point, we should be ready to go.
 
@@ -83,7 +83,7 @@ Okay, now that we're done with the prep, here's the specification that you need 
 
 5. Finally, if there is some sort of error, your slash command server, should "fail gracefully", providing a message to the user that something went wrong, and encouraging them to try again!
 
-As usual, we have supplied tests that are designed to guide you through the process and provide further specifications. And as usual, they are in the `tests` directory. Finally, be sure to you documentation and Google heavily as you seek a solution. Reading docs and engaging with the commuity is, after all, a big part of the job. Below you'll find a list of resources that should be helpful.
+As usual, we have supplied tests that are designed to guide you through the process and provide further specifications. And as usual, they are in the `tests` directory. Finally, be sure to you documentation and Google heavily as you seek a solution. Reading docs and engaging with the community is, after all, a big part of the job. Below you'll find a list of resources that should be helpful.
 
 Good luck, and enjoy!
 
