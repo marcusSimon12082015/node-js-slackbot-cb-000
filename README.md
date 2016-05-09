@@ -65,19 +65,30 @@ From here, click on the "Slash Commands" option. You'll then be presented with a
 
 ![](https://ezmiller.s3.amazonaws.com/public/images/Slash_Commands__CodeCuts_Slack_2016-05-09_09-12-42.png)
 
-The main thing that we MUST do here is to register our Ngrok webhook url. Otherwise, the slash command won't know which server to notify. You'll also want to take note of the Validation token because we'll need to implement a mechanism to validate this token for each incoming POST event to our server.
+The main thing that we MUST do here is to register our Ngrok webhook url. Otherwise, the slash command won't know which server to notify. Keep in mind that everytime you re-run Ngrok it generates a new url, so if we restart Ngrok, we'll need to update our configuration here with the new url. You'll also want to take note of the Validation token because we'll need to implement a mechanism to validate this token for each incoming POST event to our server.
+
+Alrighty. At this point, we should be ready to go.
 
 ## The Task
 
-Okay, so that's enough prep. Here's the specification that you need to meet:
+Okay, now that we're done with the prep, here's the specification that you need to meet:
 
-1. The slash command you build should be able to look up a user using the [Github API](https://developer.github.com/v3/) when supplied with a username, like so: `/<yourcommand> flatiron-school`.
-2. The answer supplied to the Slack channel should provide some basic "default" information about the user. We'll leave the definition of what consitutes "default" information up to you. But the repsonse should be nicely formatted using Slack's [Message Formatting](https://api.slack.com/docs/formatting), and should at the very least include the username and their github profile link.
-3. In addition, to providing the user name, the user should also be able to specify an explicit piece of information that they would like to retrieve from the list that is generally supplied, which you can see [here](https://api.github.com/users/flatiron-school). E.g. `/<yourcommand> flatiron-school type` shoudl return a nicely formatted message informing the user that the flatiron-school is of the type `Organization`.
-4. Finally, if there is some sort of error, your slash command server, should "fail gracefully", providing a message to the user that something went wrong, and encouraging them to try again!
+1. Every request that comes into your server must be validated. What does that mean? Well, it means that the token string sent by Slack with each slash command webhook POST request, should match the one in your configuration. So just check that that's the case.
+
+2. The slash command you build should be able to look up a user using the [Github API](https://developer.github.com/v3/) when supplied with a username, like so: `/<yourcommand> flatiron-school`.
+
+3. The answer supplied to the Slack channel should provide some basic "default" information about the user. We'll leave the definition of what consitutes "default" information up to you. But the repsonse should be nicely formatted using Slack's [Message Formatting](https://api.slack.com/docs/formatting), and should at the very least include the username and their github profile link.
+
+4. In addition, to providing the user name, the user should also be able to specify an explicit piece of information that they would like to retrieve from the list that is generally supplied, which you can see [here](https://api.github.com/users/flatiron-school). E.g. `/<yourcommand> flatiron-school type` shoudl return a nicely formatted message informing the user that the flatiron-school is of the type `Organization`.
+
+5. Finally, if there is some sort of error, your slash command server, should "fail gracefully", providing a message to the user that something went wrong, and encouraging them to try again!
+
+As usual, we have supplied tests that are designed to guide you through the process and provide further specifications. And as usual, they are in the `tests` directory. Finally, be sure to you documentation and Google heavily as you seek a solution. Reading docs and engaging with the commuity is, after all, a big part of the job. Below you'll find a list of resources that should be helpful.
 
 Good luck, and enjoy!
 
 ## Resources
 
-* Slack Slash Command Documentation: https://api.slack.com/slash-commands
+* Slack Slash Command Documentation: https://api.slack.com/slash-commands.
+* Express.Js documentation: http://expressjs.com/en/4x/api.html
+* Github API documentation: https://developer.github.com/v3/
