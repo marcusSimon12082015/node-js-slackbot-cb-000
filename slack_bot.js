@@ -40,7 +40,10 @@ app.get('/', (req,res) => {
 
 app.post('/', (req, res) => {
   if (!req.body.text) {
-    res.status(400).end();
+    res.status(400).send({
+      response_type: 'ephemeral',
+      text: "Please specify a user to find."
+    });
     return;
   }
   const cmd = req.body.text.split(' ');
@@ -51,7 +54,16 @@ app.post('/', (req, res) => {
     const result = JSON.parse(resp);
     res.send(prepareResponse(result, paramToGet));
   }).catch((err) => {
-    res.status(err.statusCode).end();
+    let errMsg = { response_type: "ephemeral" };
+    if('statusCode' in err && err.statusCode == 404) {
+      errMsg.text = "Sorry. Unable to find that user.";
+      res.status(err.statusCode).send(errMsg);
+    }
+    else {
+      const status = err.statusCode ? err.statusCode : 500;
+      errMsg.text = "Oop! Something went wrong. Please try again.";
+      res.status(status).send(errMsg);
+    }
   });
 });
 
