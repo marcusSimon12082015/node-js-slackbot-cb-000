@@ -5,6 +5,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
+// Just an example request to get you started..
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
+
 // Start Adding your solution here.
 
 // This code "exports" a function 'listen` that can be used to start
