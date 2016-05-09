@@ -7,6 +7,12 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const TOKEN = '8cVJhp6TA0fU1gEsFawEussX';
+
+const validRequest = (token) => {
+  return TOKEN == token;
+};
+
 const fetchGithubUser = (username) => {
   const url =  'https://api.github.com/users/' + username;
   return rp({
@@ -39,6 +45,10 @@ app.get('/', (req,res) => {
 });
 
 app.post('/', (req, res) => {
+  if (!validRequest(req.body.token)) {
+    res.status(400).send();
+    return;
+  }
   if (!req.body.text) {
     res.status(400).send({
       response_type: 'ephemeral',
