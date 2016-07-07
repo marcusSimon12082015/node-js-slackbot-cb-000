@@ -1,5 +1,10 @@
-Slackbot Lab
-============
+# Slackbot Lab
+
+## Objectives
+
+1. Explain how Express helps structure server-side applications
+2. Describe how to use ngrok to test remote connections
+3. Send and receive requests to/from a remote server
 
 ## Overview
 
