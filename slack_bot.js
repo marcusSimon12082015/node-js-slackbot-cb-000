@@ -22,7 +22,6 @@ app.get('/', (req, res) => {
 });
 
 app.post('/',(req,res) => {
-  debugger;
   if (req.body.token !== TOKEN)
   {
     res.status(400).send('Bad Request');
@@ -42,7 +41,6 @@ app.post('/',(req,res) => {
       res.send({response_type:"ephemeral",mrkdwn:true,text:userInformation});
     })
     .catch(function(err){
-      debugger;
       res.status(404).send({response_type:"ephemeral",text:"Cannot find specified user"});
     });
 });
