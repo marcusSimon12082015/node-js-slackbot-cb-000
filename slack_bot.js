@@ -23,10 +23,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/',(req,res) => {
-  debugger;
   if (req.body.token !== TOKEN)
   {
-    //res.status(400).send({"text":"Jebi se"});
     res.status(400).send();
     return;
   }
