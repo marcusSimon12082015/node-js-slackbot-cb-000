@@ -28,11 +28,11 @@ app.post('/',(req,res) => {
     res.status(400).send();
     return;
   }
-  const type = "";
+  let type = "";
 
   if (req.body.text) {
     const searchArg = req.body.text.split(' ');
-    const username = "";
+    let username = "";
     if (searchArg.length === 2) {
       username = searchArg[0];
       type = searchArg[1];
@@ -47,7 +47,7 @@ app.post('/',(req,res) => {
   rp(options)
     .then(function(user){
       const userInfo = JSON.parse(user);
-      const userInformation = "";
+      let userInformation = "";
       if (type !== "") {
         userInformation = "User login: "+userInfo.login+"\nUser URL: "+userInfo.html_url+"\n"+userInfo[type];
       } else {
