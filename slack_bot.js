@@ -29,6 +29,11 @@ app.post('/',(req,res) => {
     return;
   }
   if (req.body.text) {
+    if (req.body.text.split(' ').length === 2) {
+      
+    } else {
+      
+    }
     const username = req.body.text;
     options.uri = 'https://api.github.com/users/'+username;
   }else{
