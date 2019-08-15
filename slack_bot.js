@@ -28,10 +28,11 @@ app.post('/',(req,res) => {
     res.status(400).send();
     return;
   }
+  const type = "";
+
   if (req.body.text) {
     const searchArg = req.body.text.split(' ');
     const username = "";
-    const type = "";
     if (searchArg.length === 2) {
       username = searchArg[0];
       type = searchArg[1];
@@ -46,7 +47,12 @@ app.post('/',(req,res) => {
   rp(options)
     .then(function(user){
       const userInfo = JSON.parse(user);
-      const userInformation = "User login: "+userInfo.login+"\nUser URL: "+userInfo.html_url;
+      const userInformation = "";
+      if (type !== "") {
+        userInformation = "User login: "+userInfo.login+"\nUser URL: "+userInfo.html_url+"\n"+userInfo[type];
+      } else {
+        userInformation = "User login: "+userInfo.login+"\nUser URL: "+userInfo.html_url;
+      }
       res.send({"response_type":"ephemeral","mrkdwn":true,"text":userInformation});
     })
     .catch(function(err){
