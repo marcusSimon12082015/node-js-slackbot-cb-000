@@ -5,7 +5,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
-const TOKEN = 'JvBzhQ4Sd07vnG3NWn8HW7Xp';
+//const TOKEN = 'JvBzhQ4Sd07vnG3NWn8HW7Xp';
+
+const TOKEN = '8cVJhp6TA0fU1gEsFawEussX';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
