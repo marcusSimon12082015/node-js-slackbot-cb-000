@@ -24,24 +24,24 @@ app.get('/', (req, res) => {
 app.post('/',(req,res) => {
   if (req.body.token !== TOKEN)
   {
-    res.status(400).send('Bad Request');
+    res.status(400).send({"text":'Bad Request'});
     return;
   }
   if (req.body.text) {
     const username = req.body.text;
     options.uri = 'https://api.github.com/users/'+username;
   }else{
-    res.status(400).send({response_type:"ephemeral",text:"Please set username to look up"});
+    res.status(400).send({"response_type":"ephemeral","text":"Please set username to look up"});
     return;
   }
   rp(options)
     .then(function(user){
       const userInfo = JSON.parse(user);
       const userInformation = "User login: "+userInfo.login+"\nUser URL: "+userInfo.html_url;
-      res.send({response_type:"ephemeral",mrkdwn:true,text:userInformation});
+      res.send({"response_type":"ephemeral","mrkdwn":true,"text":userInformation});
     })
     .catch(function(err){
-      res.status(404).send({response_type:"ephemeral",text:"Cannot find specified user"});
+      res.status(404).send({"response_type":"ephemeral","text":"Cannot find specified user"});
     });
 });
 
