@@ -29,14 +29,16 @@ app.post('/',(req,res) => {
     return;
   }
   if (req.body.text) {
-    const searchArg = req.body.text;
+    const searchArg = req.body.text.split(' ');
     const username = "";
-    if (searchArg.includes(' ')) {
-
+    const type = "";
+    if (searchArg.length === 2) {
+      username = searchArg[0];
+      type = searchArg[1];
     } else {
       username = req.body.text;
-      options.uri = 'https://api.github.com/users/'+username;
     }
+    options.uri = 'https://api.github.com/users/'+username;
   }else{
     res.status(400).send({"response_type":"ephemeral","text":"Please set username to look up"});
     return;
