@@ -24,7 +24,8 @@ app.get('/', (req, res) => {
 app.post('/',(req,res) => {
   if (req.body.token !== TOKEN)
   {
-    res.status(400).send({"text":"Jebi se"});
+    //res.status(400).send({"text":"Jebi se"});
+    res.status(400).send();
     return;
   }
   if (req.body.text) {
